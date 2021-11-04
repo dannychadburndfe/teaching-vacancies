@@ -18,6 +18,7 @@ class RequestEvent < Event
 
   def base_data
     @base_data ||= super.merge(
+      debugging: "hello",
       request_uuid: request.uuid,
       request_user_agent: user_agent,
       request_referer: request.referer,
