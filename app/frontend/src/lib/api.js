@@ -1,6 +1,20 @@
 import axios from 'axios';
 import logger from './logging';
 
+export const eventRequest = (data) => {
+  const authenticityToken = document.getElementsByName('csrf-token')[0].content;
+
+  return new Promise((resolve) => {
+    axios.post('/events', data, { headers: { 'X-CSRF-Token': authenticityToken } })
+      .then(() => resolve())
+      .catch((error) => {
+        logger.log(`${error} Event request: ${data}`);
+        // Events are not mission-critical: always resolve regardless of outcome
+        resolve();
+      });
+  });
+};
+
 export const getPostcodeFromCoordinates = (latitude, longitude) => axios.get('https://api.postcodes.io/postcodes', {
   params: { latitude, longitude },
 }).then((response) => response.data.result[0].postcode)

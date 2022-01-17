@@ -109,6 +109,8 @@ Rails.application.routes.draw do
     resources :publisher_preferences, only: %i[new create edit update], controller: "publishers/publisher_preferences"
   end
 
+  resources :events, only: %i[create]
+
   root "home#index"
 
   get "sitemap" => "sitemap#show", format: "xml"
