@@ -29,16 +29,17 @@ export default class extends Controller {
       setTimeout(() => { this.#redirect(); }, 100);
     }
 
-    eventRequest({
-      type: EVENT_TYPE,
-      data: {
+    eventRequest(
+      EVENT_TYPE,
+      this.linkTarget.dataset.sourceData,
+      {
         link_type: this.linkTarget.dataset.type,
         location: window.location,
         text: this.linkTarget.innerText,
         href: this.linkTarget.href,
         mouse_button: e.button,
       },
-    }).then(() => {
+    ).then(() => {
       if (shouldWaitAndRedirect) this.#redirect();
     });
   }

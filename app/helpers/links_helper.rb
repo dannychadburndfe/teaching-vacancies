@@ -1,9 +1,10 @@
 module LinksHelper
-  def tracked_link_to(text, href, **kwargs)
+  def tracked_link_to(text, href, event_data = {}, **kwargs)
     govuk_link_to(text, href, **kwargs.deep_merge(data: {
       controller: "tracked-link",
       action: %w[click auxclick contextmenu].map { |a| "#{a}->tracked-link#track" }.join(" "),
       "tracked-link-target": "link",
+      "event-data": FrontendTrackingData.sign(event_data.merge(text: text, href: href)),
     }))
   end
 

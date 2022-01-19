@@ -1,11 +1,15 @@
 import axios from 'axios';
 import logger from './logging';
 
-export const eventRequest = (data) => {
+export const eventRequest = (type, sourceData, browserData) => {
   const authenticityToken = document.getElementsByName('csrf-token')[0].content;
 
   return new Promise((resolve) => {
-    axios.post('/events', data, { headers: { 'X-CSRF-Token': authenticityToken } })
+    axios.post(
+      '/events',
+      { type, sourceData, browserData },
+      { headers: { 'X-CSRF-Token': authenticityToken } },
+    )
       .then(() => resolve())
       .catch((error) => {
         logger.log(`${error} Event request: ${data}`);
