@@ -1,8 +1,18 @@
 class MarkdownDocument
+  attr_reader :section, :post_name
+
   def initialize(section, post_name)
     @section = section
     @post_name = post_name
     parse if exist?
+  end
+
+  def self.all(section)
+    file_path = Rails.root.join("app", "views", "content", section)
+
+    Dir.children(file_path).map { |file| file.split(".").first }.map do |post_name|
+      new(section, post_name)
+    end
   end
 
   def title

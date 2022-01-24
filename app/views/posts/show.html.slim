@@ -2,7 +2,7 @@
 - content_for :page_description, post.meta_description
 
 = govuk_breadcrumbs breadcrumbs: { t("breadcrumbs.home") => root_path,
-                                   params[:section].titleize.capitalize => "#",
+                                   params[:section].titleize.capitalize => posts_path(section: params[:section]),
                                    post.title => "" }
 
 .govuk-main-wrapper.post

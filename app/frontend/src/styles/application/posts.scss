@@ -24,6 +24,6 @@
   }
 
   ul {
-    @extend .govuk-list, .govuk-list--bullet;
+    @extend .govuk-list;
   }
 }
